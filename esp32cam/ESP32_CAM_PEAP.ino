@@ -108,7 +108,7 @@ void ExecuteCommand() {
   }
 }
 #define EAP_IDENTITY "yashg@iisc.ac.in"
-#define EAP_PASSWORD "NeedForSpeed87654321"
+#define EAP_PASSWORD "xxxxxxxxxxxxxxxxxx"
 #define EAP_USERNAME "yashg@iisc.ac.in"
 #define ssid "iiscwlan"
 void setup() {
