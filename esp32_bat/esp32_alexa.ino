@@ -127,63 +127,11 @@ void allInitialization() {
 
 
   Serial.println("[AWS Conn]\t\tAWS IoT Connected!");
-
-
-  // Serial.println("[BLE]\t\t\tBLE initializing");
-  // BLEDevice::init("");
-  // pBLEScan = BLEDevice::getScan();  //create new scan
-  // pBLEScan->setActiveScan(true);    //active scan uses more power, but get results faster
-  // pBLEScan->setInterval(50);        // set Scan interval
-  // pBLEScan->setWindow(49);
-  // Serial.println("[BLE]\t\t\tBLE initialized");
 }
-
-
-// void bleHandler(void* parameters) {
-//   // vTaskeDelay(2000 / portTICK_PERIOD_MS);
-//   for (;;) {
-//     lowest_rssi = 0;
-//     found = 0;
-//     BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
-//     for (i = 0; i < foundDevices.getCount(); i++) {
-//       BLEAdvertisedDevice device = foundDevices.getDevice(i);
-//       rssi = device.getRSSI();
-//       if (rssi > RSSI_THRESHOLD) {
-//         for (j = 0; j < num_ble_devices; j++) {
-//           if (strcmp(device.getAddress().toString().c_str(), knownBLEAddresses[j].c_str()) == 0) {
-//             Serial.print("[BLE]\t\t\tDevice Address: ");
-//             Serial.print(device.getAddress().toString().c_str());
-//             Serial.print(" | RSSI: ");
-//             Serial.println(rssi);
-//             found = 1;
-//             if (lowest_rssi > rssi)
-//               lowest_rssi = rssi;
-//           }
-//         }
-//       }
-//     }
-//     if (found == 0) {
-//       total++;
-//     } else {
-//       total = 0;
-//     }
-//     pBLEScan->clearResults();
-//     vTaskDelay(BLE_TASK_DELAY / portTICK_PERIOD_MS);
-//     // continue;
-//   }
-// }
-
 
 void setup() {
   Serial.begin(115200);
   allInitialization();
-  // xTaskCreate(
-  //   bleHandler,
-  //   "BLE Handler",
-  //   5000,
-  //   NULL,
-  //   2,
-  //   &task_ble_handle);
 }
 
 
@@ -205,30 +153,4 @@ void loop() {
     publishMessage(AWS_IOT_PUBLISH_TOPIC, 2);
     while(!digitalRead(PULL)){}
   }
-  // if (lowest_rssi !=0) {
-  //   if (total < 10) {
-  //     // digitalWrite(APPLIANCE, LOW);
-  //     publishRSSI(AWS_IOT_PUBLISH_RSSI, lowest_rssi);
-  //   } else {
-  //     // digitalWrite(APPLIANCE, HIGH);
-  //     publishRSSI(AWS_IOT_PUBLISH_RSSI, 100);
-  //     total = 10;
-  //   }
-  // }
-  // // if (lowest_rssi < RSSI_THRESHOLD)
-  // //   publishRSSI(AWS_IOT_PUBLISH_RSSI, lowest_rssi);
-  // // else
-  // //   publishRSSI(AWS_IOT_PUBLISH_RSSI, 100);
-  // // delay(100);
-  // if (switch_used) {
-  //   Serial.print("[SWITCH]\t\tAppliance is switched ");
-  //   if (!digitalRead(APPLIANCE)) {
-  //     Serial.println("On");
-  //     publishMessage(AWS_IOT_PUBLISH_TOPIC, 1);
-  //   } else {
-  //     Serial.println("Off");
-  //     publishMessage(AWS_IOT_PUBLISH_TOPIC, 0);
-  //   }
-  //   switch_used = 0;
-  // }
 }
