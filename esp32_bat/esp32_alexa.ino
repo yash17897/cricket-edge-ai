@@ -4,35 +4,12 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "WiFi.h"
-// #include <BLEDevice.h>
 /////////////////////////////////////////////////
 
-///////////// BLE Initialization ////////////////
-// String knownBLEAddresses[] = { "d6:36:01:21:04:ed", "ca:68:2b:92:d6:a9" };
-// int num_ble_devices = sizeof(knownBLEAddresses) / sizeof(knownBLEAddresses[0]);
-// int RSSI_THRESHOLD = -80;
-// int scanTime = 1;
-// int ble_count = 0;
-// BLEScan* pBLEScan;
-// int lowest_rssi = 0;
-// bool found = 0;
-// int i = 0, j = 0;
-// int rssi = 0;
-// int total = 0;
-/////////////////////////////////////////////////
-
-
-///////////// Task Declarations /////////////////
-// #define BLE_TASK_DELAY 100
-// //#define BLE_TASK_DELAY 500------> for slave4 only
-// // #define WIFI_TASK_DELAY 10000
-// TaskHandle_t task_ble_handle = NULL;
-// // TaskHandle_t task_wifi_handle = NULL;
-/////////////////////////////////////////////////
 
 ////////////// WiFi Credentials /////////////////
 #define EAP_IDENTITY "yashg@iisc.ac.in"
-#define EAP_PASSWORD "NeedForSpeed87654321"
+#define EAP_PASSWORD "xxxxxxxxxxxxxxxxxxxxxx"
 #define EAP_USERNAME "yashg@iisc.ac.in"
 #define ssid "iiscwlan"
 #define WIFI_TIMEOUT_MS 60000
@@ -102,39 +79,24 @@ void messageHandler(char* topic, byte* payload, unsigned int length) {
   }
 }
 
-// void IRAM_ATTR switchChangeISR() {
-//   if (!digitalRead(SWITCH)) {
-//     digitalWrite(APPLIANCE, LOW);
-//   } else {
-//     digitalWrite(APPLIANCE, HIGH);
-//   }
-//   switch_used = 1;
-// }
-
 void allInitialization() {
 
   pinMode(DRIVE, INPUT);
   pinMode(NOSHOT, INPUT);
   pinMode(PULL, INPUT);
-  // digitalWrite(APPLIANCE, HIGH);
-  // attachInterrupt(SWITCH, switchChangeISR, CHANGE);
 
 
   WiFi.mode(WIFI_STA);
-  // WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
   Serial.print(F("[WiFi]\t\t\tConnecting to network: "));
   Serial.println(ssid);
   WiFi.disconnect(true);  //disconnect from WiFi to set new WiFi connection
 
   WiFi.begin(ssid, WPA2_AUTH_PEAP, EAP_IDENTITY, EAP_USERNAME, EAP_PASSWORD);  // without CERTIFICATE, RADIUS server EXCEPTION "for old devices" required
 
-  // Serial.println("[WiFi]\t\t\tConnecting to Wi-Fi");
+
   Serial.println("[WiFi]\t\t\tWiFi is connected!");
-  // Serial.print("[WiFi]\t\t\tIP address set: ");
-  // Serial.println(WiFi.localIP());  //print LAN IP
   while (WiFi.status() != WL_CONNECTED) {
-    // delay(500);
-    // Serial.println("[WiFi]\t\t\t.");
   }
 
   // Configure WiFiClientSecure to use the AWS IoT device credentials
